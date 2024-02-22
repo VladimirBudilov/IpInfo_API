@@ -1,8 +1,6 @@
 ﻿using System.Text.Json;
 using IT_CORN_WEB_API.Data;
-using IT_CORN_WEB_API.Data.Entity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace IT_CORN_WEB_API.Controller;
 
