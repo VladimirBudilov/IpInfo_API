@@ -9,15 +9,15 @@ public static class IpInfoEndpoints
     /// <summary>
     /// Get data about a specific IP address and saves it to the database.
     /// </summary>
-    /// <param name="ip">The IP address to retrieve data for.</param>
+    /// <param name="ipAddress">The IP address to retrieve data for.</param>
     /// <returns>A Task representing the asynchronous operation.</returns>
     [HttpGet("{ip}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public static async Task GetOne(string ip, HttpContext context, LogDbContext dbContext, IpInfoService infoService)
+    public static async Task GetOne(string ipAddress, HttpContext context, LogDbContext dbContext, IpInfoService infoService)
     {
-        var data = await infoService.GetIpInfo(ip);
+        var data = await infoService.GetIpInfo(ipAddress);
         GeoData? geoData = JsonSerializer.Deserialize<GeoData>(data);
         ErrorHelper.ErrorResponse? error = JsonSerializer.Deserialize<ErrorHelper.ErrorResponse>(data);
 
@@ -27,7 +27,7 @@ public static class IpInfoEndpoints
             return;
         }
 
-        await DbService.SaveDataToDatabase(ip, dbContext, geoData);
+        await DbService.SaveDataToDatabase(ipAddress, dbContext, geoData);
         await context.Response.WriteAsJsonAsync(geoData);
     }
 }

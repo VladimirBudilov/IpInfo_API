@@ -28,7 +28,7 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 
-app.MapGet("/api/{ip}", IpInfoEndpoints.GetOne)
+app.MapGet("/api/ipinfo/{ipAddress}", IpInfoEndpoints.GetOne)
     .WithOpenApi()
     .WithName("GetOne");
 
